@@ -12,7 +12,7 @@ Install test:
 
 Run test:
 
-  MAX_TIMES_TO_RUN=1 ./phoronix-test-suite run pts/xplane9
+  FORCE_TIMES_TO_RUN=1 ./phoronix-test-suite run pts/xplane9
 
 Mute annoying prompts:
 
@@ -22,4 +22,7 @@ Privacy:
   
   TODO
   
+Downloaded Files Cache:
+
+  ~/.phoronix-test-suite/download-cache
 
