@@ -1,0 +1,25 @@
+Download:
+
+  git clone http://www.phorogit.com/repo/phoronix-test-suite.git
+
+List tests:
+
+  ./phoronix-test-suite list-available-tests
+
+Install test:
+
+  ./phoronix-test-suite install pts/xplane9
+
+Run test:
+
+  MAX_TIMES_TO_RUN=1 ./phoronix-test-suite run pts/xplane9
+
+Mute annoying prompts:
+
+  TODO
+
+Privacy:
+  
+  TODO
+  
+
