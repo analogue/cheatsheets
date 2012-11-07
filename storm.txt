@@ -1,0 +1,49 @@
+Storm Notes
+------------
+spout 
+ - flows data from external sources into the storm topology
+ - streams originate from a spout
+ 
+stream
+ - abstraction for a data flow
+ - unbounded sequence of tuples
+ - has a unique ID
+ - originates from a spout
+ 
+bolt
+ - essentially a sink
+ - perform a single transformation on a stream
+ - this is where the "processing" is done
+ - can implement "map" or "reduce" functionality ala hadoop
+ - can implement single step functions like
+   o filtering
+   o aggregations
+   o communication with external resources like a db
+ - can stream data to multiple bolts
+ - can accept data from multiple sources
+ 
+stream groupings
+ - tells storm how to send tuples between sets of tasks
+ - implements shuffling (random but equal distribution of tuples to bolts)
+ - implements field grouping 
+   o stream partitioning based upon fields of the stream
+   o a field grouping lets you group a stream by a subset of its fields
+   o equal values for that subset of fields to go to the same task
+   o fields groupings are the basis of implementing streaming joins and streaming aggregations
+   o fields groupings are implemented using consistent hashing (change parallelism config w/o consequence)
+ - other - producer can route tuples using its own internal logic
+
+guaranteed message processing
+ - every tuple that a spout emits will be processed
+ - if tuple not processed within timeout, the tuple is replayed from the spout
+ - uses zeromq (no intermediate queueing) to directly pass messages between tasks
+ - zeromq handles congestion and optimizes for available bandwidth
+ 
+advanced topics
+ - multi-streams
+ - implicit streams
+ - direct groupings
+ - in addition to spout and bolt, there is the "state spout"
+ - distributed rpc over storm
+ - automated deploy of a storm cluster on EC2
+
