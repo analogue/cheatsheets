@@ -1,0 +1,16 @@
+
+Unmount stuck nfs share on a client because nfs server is unreachable:
+
+  1) Create a fake interface bound to the nfs server's ip addr:
+
+    sudo ifconfig eth0:fakenfs 192.168.1.99 netmask 255.255.255.255
+
+  2) Unmount the hung nfs share:
+
+    sudo umount -lf /mnt/i_am_stuck
+
+  3) Delete the fake interface
+
+    sudo ifconfig eth0:fakenfs delete 192.168.1.99
+
+
