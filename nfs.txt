@@ -14,3 +14,8 @@ Unmount stuck nfs share on a client because nfs server is unreachable:
     sudo ifconfig eth0:fakenfs delete 192.168.1.99
 
 
+Clear NFS server cache:
+
+  # To free pagecache, dentries and inodes
+  echo 3 > /proc/sys/vm/drop_caches
+
