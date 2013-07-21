@@ -1,0 +1,19 @@
+login to vm: root/123456
+
+toolchain is in /usr/local/ToolChain (download if a newer one available)
+
+everything (env vars) all setup to cross-compile packages
+
+Steps for collectd:
+
+./configure --prefix=/raid/data/module/COLLECTD --host=${HOST}
+
+or to override only gcc:
+
+./configure CC=${HOST}-gcc
+
+$HOST is the magic var that points to the toolchain!
+
+scp results over to NAS after configure + make + make install
+
+
