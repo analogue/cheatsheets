@@ -1,0 +1,138 @@
+Commands
+=========
+seq 1 5 -  prints 1 2 3 4 5
+tr -cd - remove chars from stream 
+
+Tricks
+========
+- wrap commands in { } to executes in a subshell 
+ time { ls -l | grep abc; }    #  spaces after {} and semicolon important!  
+
+- unset HISTFILE -- so commands don't get written to .bash_history
+
+Constructs
+===========
+
+[For loop]
+
+#!/bin/bash
+for i in `seq 1 10`;
+do
+        echo $i
+done 
+
+[Conditional]
+
+if [ "$user" = "me" ]
+then
+  echo "Wow"
+fi
+
+[Truncate all log files in current dir]
+
+for i in `find . -type f -name "*.log"`; do echo /dev/null > $i; done
+
+
+
+Replacing csh with bash:
+========================
+Add exec /usr/bin/bash --login in .login
+
+exec replaces the current process so you don't have to logout twice
+
+
+Sort dir by size
+==================
+ls -l | sort -n -k5    -- numeric sort with sort key in 5th postion 
+
+
+The find command
+===================
+find . -name "*.log"
+
+find . -name "*.log" -o -name "*.bak" -o -name "*.tmp"    -- you can OR stuff together
+
+find . -name "*.log" -a -type f  -- AND is implicit or explicit with -a
+
+find . -name "*.log" -mtime +10  -- modified more than 10 days ago
+ 
+find . -type f -a \( -name "*.log" -o -name "*.tmp" \)   -- use () for precedence -- dont forget to escape them
+
+
+Tricks
+=================
+# instead of:
+if [ $# -eq 0 -o "$1" = "--help" ]
+then
+    grep '^#/' <"$0" |
+    cut -c4-
+    exit 2
+fi
+
+# try this:
+test $# -eq 0 -o "$1" = "--help" && {
+    grep '^#/' <"$0" |
+    cut -c4-
+    exit 2
+}
+
+
+Prompts
+============
+PS1='\[\e]0;\u@\h: \w\a\]${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+
+
+String Wrangling
+================
+You can use string operators:
+
+$ foo=1:2:3:4:5
+$ echo ${foo##*:}
+5
+This trims everything from the front until a ':', greedily.
+
+${foo  <-- from variable foo
+  ##   <-- greedy front trim
+  *    <-- matches anything
+  :    <-- until the last ':'
+ }
+
+
+Esoteric shit I can never remember
+==================================
+
+Command substitution just replaces the command with the stdout of executing the command
+
+  $(command)  is the same as `command`
+
+  $*  all parameters separated by IFS (space)
+  $@  all parameters separated by double quotes
+  $#  number of parameters
+  $?  exit status of last command
+  $$  PID of shell
+  $0  name of script 
+
+Here Documents:
+
+cat << EOF > somefile.txt
+command 1
+command 2
+etc
+EOF
+
+EOF == begin/end marker - can be any string
+'EOF' to prevent command substitution (only the begin marker)
+<<- intead of << to suppress leading tabs -- for formatting mostly
+g 
+
+Conditionals
+============!  =
+if [ -d "$dir" ]; then
+fi
+
+
+Line Numbers for Debugging
+==========================
+set +x
+export PS4=' ${LINENO} '
+
