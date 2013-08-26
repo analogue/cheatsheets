@@ -1,0 +1,23 @@
+sudo apt-get install network-manager-openvpn network-manager-openvpn-gnome
+Network Manager > VPN Connections > Configure VPN...
+Click on Add button
+Choose OpenVPN and click Create...
+Gateway: IP address of you EC2 instance
+Type: Certificates (TLS)
+User Certificate: .crt
+CA Certificate: ca.crt
+Private Key: .key
+Private Key Password: leave empty
+Click on Advanced button
+General Tab >
+Use custon gateway port: 443
+Use LZO data compression: checked
+Use TCP connection: checked
+TLS Authentication Tab >
+Use additional TLS authentication: Checked
+Key File: ta.key
+Key Direction: 1
+Save everything
+sudo service network-manager restart
+Network Manager > VPN Connections > Select you newly created VPN
+tail -f /var/log/messages for troubleshooting
