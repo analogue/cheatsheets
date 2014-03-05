@@ -1,0 +1,4 @@
+- See diffs before 'git pull'ing a branch
+
+  git fetch
+  git diff ...origin
