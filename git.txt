@@ -2,3 +2,8 @@
 
   git fetch
   git diff ...origin
+
+
+- Deleting remote branches
+
+  git push origin :<branch_name>
