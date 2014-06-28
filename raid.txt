@@ -1,0 +1,6 @@
+Swap out hd that hasn't failed completely with a replacement hd
+
+mdadm --detail /dev/md0
+mdadm --manage /dev/md0 --fail /dev/sde
+mdadm --manage /dev/md0 --remove /dev/sde
+mdadm --manage /dev/md0 --add /dev/sda
